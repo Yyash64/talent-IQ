@@ -8,6 +8,7 @@ import { serve } from "inngest/express";
 import { clerkMiddleware } from "@clerk/express";
 // import { protectRoute } from "./middleware/protectRoute.js";
 import chatRoutes from "./routes/chatRoutes.js";
+import sessionRoutes from "./routes/sessionRoutes.js";
 // import { get } from "http";
 
 const app = express();
@@ -23,6 +24,7 @@ app.use("/api/inngest", serve({
   functions: functions 
 }));
 app.use("/api/chat", chatRoutes);
+app.use("/api/sessions", sessionRoutes);
 app.get("/api", (req, res) => {
   res.status(200).json({ msg: "success from api" });
 });
