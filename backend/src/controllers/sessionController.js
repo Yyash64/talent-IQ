@@ -77,6 +77,12 @@ export async function joinSession(req, res) {
     if(!session){
         return res.status(404).json({msg:"Session not found"});
     }
+    if(session.status!=="active"){
+        return res.status(400).json({msg:"Cannot join a completed session"});
+    }
+    if(sesion.host.toString()===userID.toString()){
+        return res.status(400).json({msg:"Host cannot join their own session as participant"});
+    }
     if(session.participant)return res.status(400).json({msg:"Session already has a participant"});
     session.participant=userID;
     await session.save();
